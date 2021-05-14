@@ -1,32 +1,39 @@
-export const APP_ROUTES = {
-  first: 'first',
-  second: 'second',
-  third: 'third',
-  404: '404'
-};
-
 export const NAV_ITEMS: NavigationData[] = [
   {
     name: 'Первый компонент',
-    url: APP_ROUTES.first
+    url: '/first'
   },
   {
     name: 'Второй компонент',
-    url: APP_ROUTES.second
+    url: '/second'
   },
   {
     name: 'Третий компонент',
-    url: APP_ROUTES.third
+    url: '/third'
+  },
+  {
+    name: 'Yandex Website',
+    href: 'https://yandex.ru',
+    attributes: [
+      {
+        rel: 'noopener'
+      },
+      {
+        target: '_blank',
+      }
+    ]
   }
 ];
 
 export interface NavigationAttributes {
   [propName: string]: any;
 }
+
 export interface NavigationLabel {
   class?: string;
   variant: string;
 }
+
 export interface NavigationWrapper {
   attributes: NavigationAttributes;
   element: string;
@@ -78,7 +85,7 @@ export interface NavigationData {
   /**
    * variant - second class, used nav buttons
    */
-  variant?: 'success' | 'danger' | 'info' ;
+  variant?: 'success' | 'danger' | 'info';
   /**
    * attributes - need for customization links.
    * target: '_blank'

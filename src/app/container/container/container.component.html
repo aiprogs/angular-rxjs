@@ -1,4 +1,7 @@
 <header>
-  <a *ngFor="let nav of navItems" [routerLink]="nav.url">{{nav.name}}</a>
+  <ng-container *ngFor="let nav of navItems">
+    <a *ngIf="nav.url" [routerLink]="nav.url">{{nav.name}}</a>
+    <a *ngIf="nav.href" [href]="nav.href">{{nav.name}}</a>
+  </ng-container>
 </header>
 <router-outlet></router-outlet>
