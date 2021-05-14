@@ -1,30 +1,28 @@
 import { Injectable, Optional, SkipSelf } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { mergeMap, switchMap } from 'rxjs/operators';
-import { BeatService } from './beat.service';
+import { mergeMap } from 'rxjs/operators';
+import { BeatService, BeatVersion } from './beat.service';
 import { MockService, SomeData } from './mock.service';
 import { logger, LoggerLevel } from '../utils/logger';
+import { BaseServiceClass } from './base-service.class';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ProfilesService {
-  sync$: Observable<SomeData>;
+export class ProfilesService extends BaseServiceClass<SomeData> {
 
   constructor(@Optional() @SkipSelf() profiles: ProfilesService,
-              private beatService: BeatService,
+              beatService: BeatService,
               private mockService: MockService) {
-    this.sync$ = this.beatService.sync$
-      .pipe(
-        switchMap(versions => {
-          return this.sync(versions?.profile ?? '0');
-        })
-      );
+    super(beatService, {
+      name: '',
+      description: ''
+    });
   }
 
-  private sync(version: string): Observable<SomeData> {
+  protected sync(version: BeatVersion): Observable<SomeData> {
     return of(version).pipe(
-      mergeMap(ver => this.mockService.getSomeData(ver)),
+      mergeMap(ver => this.mockService.getSomeData(ver.profile ?? '0')),
       logger('ProfilesService emitted', LoggerLevel.INFO)
     );
   }

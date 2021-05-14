@@ -1,30 +1,24 @@
 import { Injectable, Optional, SkipSelf } from '@angular/core';
 import { Observable, of, throwError } from 'rxjs';
-import { catchError, finalize, switchMap } from 'rxjs/operators';
-import { BeatService } from './beat.service';
+import { finalize, switchMap } from 'rxjs/operators';
+import { BeatService, BeatVersion } from './beat.service';
+import { BaseServiceClass } from './base-service.class';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ChannelsService {
-  sync$: Observable<CacheChannel>;
+export class ChannelsService extends BaseServiceClass<CacheChannel> {
   private channels$: Observable<CacheChannel> | undefined;
 
   constructor(@Optional() @SkipSelf() channels: ChannelsService,
-              private beatService: BeatService) {
-    this.sync$ = this.beatService.sync$
-      .pipe(
-        switchMap(versions => {
-          return this.sync(versions?.channel);
-        }),
-        catchError((err, caught) => {
-          console.error(err);
-          return caught;
-        })
-      );
+              beatService: BeatService) {
+    super(beatService, {
+      channels: [],
+      lastUpdate: new Date()
+    });
   }
 
-  private sync(version: string | undefined): Observable<CacheChannel> {
+  protected sync(version: BeatVersion): Observable<CacheChannel> {
     if (!this.channels$) {
       return this.channels$ = of(version).pipe(
         switchMap(() => throwError(`Sorry, ChannelsService want die. Last version: ${version}`)),

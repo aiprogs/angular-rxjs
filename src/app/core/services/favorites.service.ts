@@ -1,6 +1,6 @@
 import { Injectable, Optional, SkipSelf } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { delay, map, switchMap, tap } from 'rxjs/operators';
+import { delay, map, tap } from 'rxjs/operators';
 import { BeatService, BeatVersion } from './beat.service';
 import { logger, LoggerLevel } from '../utils/logger';
 import { LocksService } from './locks.service';

@@ -1,32 +1,26 @@
 import { Injectable, Optional, SkipSelf } from '@angular/core';
-import { Observable, of, Subscription } from 'rxjs';
-import { finalize, map, switchMap, take } from 'rxjs/operators';
-import { BeatService } from './beat.service';
+import { Observable, of } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { BeatService, BeatVersion } from './beat.service';
 import { logger, LoggerLevel } from '../utils/logger';
+import { BaseServiceClass } from './base-service.class';
 
 @Injectable({
   providedIn: 'root'
 })
-export class RemindersService {
+export class RemindersService extends BaseServiceClass<string> {
 
-  sync$: Observable<string>;
 
   constructor(@Optional() @SkipSelf() reminders: RemindersService,
-              private beatService: BeatService) {
-    this.sync$ = this.beatService.sync$
-      .pipe(
-        switchMap(versions => {
-          return RemindersService.sync(versions?.reminder ?? '0');
-        }),
-        take(3),
-        finalize(() => console.warn('RemindersService completed work'))
-      );
+              beatService: BeatService) {
+    super(beatService, '');
   }
 
-  private static sync(version: string): Observable<string> {
+  protected sync(version: BeatVersion): Observable<string> {
     return of(version).pipe(
       map(ver => {
-        return ver;
+        this.update(ver.profile ?? '0');
+        return this.repeat$.getValue();
       }),
       logger('RemindersService emitted', LoggerLevel.INFO)
     );
