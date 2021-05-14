@@ -1,31 +1,26 @@
 import { Injectable, Optional, SkipSelf } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
-import { BeatService } from './beat.service';
+import { map } from 'rxjs/operators';
+import { BeatService, BeatVersion } from './beat.service';
 import { logger, LoggerLevel } from '../utils/logger';
+import { BaseServiceClass } from './base-service.class';
 
 @Injectable({
   providedIn: 'root'
 })
-export class BookmarksService {
-
-  sync$: Observable<string>;
+export class BookmarksService extends BaseServiceClass<string> {
 
   constructor(@Optional() @SkipSelf() bookmarks: BookmarksService,
-              private beatService: BeatService) {
-    this.sync$ = this.beatService.sync$
-      .pipe(
-        switchMap(versions => {
-          return BookmarksService.sync(versions?.reminder ?? '0');
-        })
-      );
+              beatService: BeatService) {
+    super(beatService, '');
   }
 
-  private static sync(version: string): Observable<string> {
+  protected sync(version: BeatVersion): Observable<string> {
     return of(version)
       .pipe(
         map((ver) => {
-          return ver;
+          this.update(ver.bookmark ?? '0');
+          return this.repeat$.getValue();
         }),
         logger('BookmarksService emitted', LoggerLevel.INFO)
       );

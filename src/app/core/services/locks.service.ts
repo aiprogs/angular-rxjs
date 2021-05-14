@@ -1,31 +1,43 @@
 import { Injectable, Optional, SkipSelf } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
-import { BeatService } from './beat.service';
+import { map } from 'rxjs/operators';
+import { BeatService, BeatVersion } from './beat.service';
 import { logger, LoggerLevel } from '../utils/logger';
+import { BaseServiceClass } from './base-service.class';
 
 @Injectable({
   providedIn: 'root'
 })
-export class LocksService {
-  sync$: Observable<string>;
+export class LocksService extends BaseServiceClass<LockData> {
 
   constructor(@Optional() @SkipSelf() locks: LocksService,
-              private beatService: BeatService) {
-    this.sync$ = this.beatService.sync$
-      .pipe(
-        switchMap(versions => {
-          return LocksService.sync(versions?.lock ?? '0');
-        })
-      );
+              beatService: BeatService) {
+    super(beatService, {
+      name: '',
+      version: ''
+    });
   }
 
-  private static sync(version: string): Observable<string> {
-    return of(version).pipe(
+  protected sync(version: BeatVersion): Observable<LockData> {
+    return of(version.lock).pipe(
       map(ver => {
-        return ver;
+        this.setLock(ver ?? '0');
+        return this.repeat$.getValue();
       }),
       logger('LocksService emitted', LoggerLevel.INFO)
     );
   }
+
+  public setLock(version: string): void {
+    this.update({
+      version,
+      name: new Date().toString()
+    });
+  }
+
+}
+
+interface LockData {
+  name: string;
+  version: string;
 }

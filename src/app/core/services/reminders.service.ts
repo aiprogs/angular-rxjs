@@ -1,5 +1,5 @@
 import { Injectable, Optional, SkipSelf } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable, of, Subscription } from 'rxjs';
 import { finalize, map, switchMap, take } from 'rxjs/operators';
 import { BeatService } from './beat.service';
 import { logger, LoggerLevel } from '../utils/logger';
@@ -16,14 +16,14 @@ export class RemindersService {
     this.sync$ = this.beatService.sync$
       .pipe(
         switchMap(versions => {
-          return this.sync(versions?.reminder ?? '0');
+          return RemindersService.sync(versions?.reminder ?? '0');
         }),
         take(3),
         finalize(() => console.warn('RemindersService completed work'))
       );
   }
 
-  sync(version: string): Observable<string> {
+  private static sync(version: string): Observable<string> {
     return of(version).pipe(
       map(ver => {
         return ver;

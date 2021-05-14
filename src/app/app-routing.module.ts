@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ContainerComponent } from './container/container/container.component';
 import { APP_ROUTES } from './_nav';
+import { PageNotFoundComponent } from './modules/page-not-found/page-not-found.component';
 
 const routes: Routes = [
   {
@@ -28,8 +29,12 @@ const routes: Routes = [
     ]
   },
   {
+    path: APP_ROUTES['404'],
+    component: PageNotFoundComponent
+  },
+  {
     path: '**',
-    redirectTo: APP_ROUTES.first
+    redirectTo: APP_ROUTES['404']
   }
 ];
 

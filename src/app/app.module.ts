@@ -4,11 +4,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ContainerComponent } from './container/container/container.component';
 import { LoggerLevel, setLoggerLevel } from './core/utils/logger';
+import { PageNotFoundComponent } from './modules/page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ContainerComponent
+    ContainerComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,

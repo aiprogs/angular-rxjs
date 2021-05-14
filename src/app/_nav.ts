@@ -1,7 +1,8 @@
 export const APP_ROUTES = {
   first: 'first',
   second: 'second',
-  third: 'third'
+  third: 'third',
+  404: '404'
 };
 
 export const NAV_ITEMS: NavigationData[] = [
