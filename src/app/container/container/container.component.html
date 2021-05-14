@@ -1,0 +1,4 @@
+<header>
+  <a *ngFor="let nav of navItems" [routerLink]="nav.url">{{nav.name}}</a>
+</header>
+<router-outlet></router-outlet>
