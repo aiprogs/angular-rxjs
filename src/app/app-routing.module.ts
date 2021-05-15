@@ -24,6 +24,10 @@ const routes: Routes = [
       {
         path: 'third',
         loadChildren: () => import('./modules/third/third.module').then(mod => mod.ThirdModule)
+      },
+      {
+        path: 'fourth',
+        loadChildren: () => import('./modules/fourth/fourth.module').then(mod => mod.FourthModule)
       }
     ]
   },

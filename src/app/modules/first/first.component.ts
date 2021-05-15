@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostBinding, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-first',
@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./first.component.scss']
 })
 export class FirstComponent implements OnInit {
+  @HostBinding('class') classes = 'row';
 
   constructor() { }
 

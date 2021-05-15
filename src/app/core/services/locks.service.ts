@@ -1,6 +1,6 @@
 import { Injectable, Optional, SkipSelf } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, mergeMap, switchMap } from 'rxjs/operators';
 import { BeatService, BeatVersion } from './beat.service';
 import { logger, LoggerLevel } from '../utils/logger';
 import { BaseServiceClass } from './base-service.class';
@@ -21,7 +21,11 @@ export class LocksService extends BaseServiceClass<LockData> {
   protected sync(version: BeatVersion): Observable<LockData> {
     return of(version.lock).pipe(
       map(ver => {
-        this.setLock(ver ?? '0');
+        if (this.repeat$.getValue().version >= '10') {
+          this.setLock('1');
+          return this.repeat$.getValue();
+        }
+        this.setLock(ver ?? '1');
         return this.repeat$.getValue();
       }),
       logger('LocksService emitted', LoggerLevel.INFO)

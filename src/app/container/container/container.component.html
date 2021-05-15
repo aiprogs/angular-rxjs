@@ -1,7 +1,24 @@
-<header>
-  <ng-container *ngFor="let nav of navItems">
-    <a *ngIf="nav.url" [routerLink]="nav.url">{{nav.name}}</a>
-    <a *ngIf="nav.href" [href]="nav.href">{{nav.name}}</a>
-  </ng-container>
-</header>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" routerLink="/">
+      <img src="https://getbootstrap.com/docs/5.0/assets/brand/bootstrap-logo.svg" alt="" width="30" height="24">
+    </a>
+    <div class="collapse navbar-collapse">
+      <ul class="navbar-nav">
+        <li *ngFor="let nav of navItems" class="nav-item" [ngSwitch]="helper.itemType(nav)">
+          <a *ngSwitchCase="navType.link"
+             [attr.disabled]="helper.getLinkType(nav)"
+             [routerLink]="nav.url"
+             class="nav-link"
+             routerLinkActive="active">{{nav.name}}</a>
+          <a *ngSwitchCase="navType.external_link"
+             [attr.disabled]="helper.getLinkType(nav)"
+             [href]="nav.href"
+             class="nav-link"
+             routerLinkActive="active">{{nav.name}}</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
 <router-outlet></router-outlet>

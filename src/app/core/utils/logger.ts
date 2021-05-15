@@ -17,33 +17,33 @@ export function setLoggerLevel(level: LoggerLevel): void {
   loggerLevel = level;
 }
 
-export const logger = (message: any, level: LoggerLevel) => <T>(source: Observable<T>) =>
+export const logger = (message: string, level: LoggerLevel) => <T>(source: Observable<T>) =>
   source.pipe(
     tap((value) => {
         switch (level) {
           case LoggerLevel.TRACE:
             if (level >= loggerLevel) {
-              console.trace(message, value);
+              console.trace(message, {value});
             }
             break;
           case LoggerLevel.DEBUG:
             if (level >= loggerLevel) {
-              console.debug(message, value);
+              console.debug(message, {value});
             }
             break;
           case LoggerLevel.INFO:
             if (level >= loggerLevel) {
-              console.info(message, value);
+              console.info(message, {value});
             }
             break;
           case LoggerLevel.ERROR:
             if (level >= loggerLevel) {
-              console.error(message, value);
+              console.error(message, {value});
             }
             break;
           case LoggerLevel.WARN:
             if (level >= loggerLevel) {
-              console.warn(message, value);
+              console.warn(message, {value});
             }
             break;
           case LoggerLevel.ASSERT:
