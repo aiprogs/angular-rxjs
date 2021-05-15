@@ -18,7 +18,7 @@ import { Router } from '@angular/router';
 })
 export class AppComponent implements OnInit, OnDestroy {
 
-  private combineSubscription = new Subscription();
+  private subscriptions = new Subscription();
 
   constructor(private beatSrv: BeatService,
               private bookmarksService: BookmarksService,
@@ -29,13 +29,13 @@ export class AppComponent implements OnInit, OnDestroy {
               private remindersService: RemindersService,
               private router: Router
   ) {
-    this.combineSubscription.add(this.beatSrv.sync$.subscribe());
-    this.combineSubscription.add(this.bookmarksService.sync$.subscribe());
-    this.combineSubscription.add(this.channelsService.sync$.subscribe());
-    this.combineSubscription.add(this.favoritesService.sync$.subscribe());
-    this.combineSubscription.add(this.locksService.sync$.subscribe());
-    this.combineSubscription.add(this.profilesService.sync$.subscribe());
-    this.combineSubscription.add(this.remindersService.sync$.subscribe());
+    this.subscriptions.add(this.beatSrv.sync$.subscribe());
+    this.subscriptions.add(this.bookmarksService.sync$.subscribe());
+    this.subscriptions.add(this.channelsService.sync$.subscribe());
+    this.subscriptions.add(this.favoritesService.sync$.subscribe());
+    this.subscriptions.add(this.locksService.sync$.subscribe());
+    this.subscriptions.add(this.profilesService.sync$.subscribe());
+    this.subscriptions.add(this.remindersService.sync$.subscribe());
 
   }
 
@@ -44,6 +44,6 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.combineSubscription?.unsubscribe();
+    this.subscriptions?.unsubscribe();
   }
 }
