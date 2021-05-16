@@ -21,11 +21,11 @@ export class ThirdComponent implements OnInit, OnDestroy {
         finalize(() => console.log('ThirdComponent favoriteService completed'))
       )
       .subscribe(
-      favorites => {
-        this.favorites = favorites;
-        this.cd.markForCheck();
-      }
-    );
+        favorites => {
+          this.favorites = favorites;
+          this.cd.markForCheck();
+        }
+      );
   }
 
   ngOnInit(): void {

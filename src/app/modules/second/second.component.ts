@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { LocksService } from '../../core/services/locks.service';
-import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-second',

@@ -1,11 +1,12 @@
 import { Injectable, Optional, SkipSelf } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { debounceTime, delay, map, tap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { BaseServiceClass } from '../base-service.class';
 import { BeatService, BeatVersion } from '../beat.service';
 import { LocksService } from '../locks.service';
 import { logger, LoggerLevel } from '../../utils/logger';
 import { Favorites } from './shared/interfaces/favorites.interface';
+
 @Injectable({
   providedIn: 'root'
 })

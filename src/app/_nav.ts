@@ -18,6 +18,10 @@ export const NAV_ITEMS: NavigationData[] = [
     url: 'fourth'
   },
   {
+    name: 'Pause Observable',
+    url: 'fifth'
+  },
+  {
     name: 'Yandex Website',
     href: 'https://yandex.ru',
     attributes: { target: '_blank', rel: 'noopener'}

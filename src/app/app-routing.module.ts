@@ -28,6 +28,10 @@ const routes: Routes = [
       {
         path: 'fourth',
         loadChildren: () => import('./modules/fourth/fourth.module').then(mod => mod.FourthModule)
+      },
+      {
+        path: 'fifth',
+        loadChildren: () => import('./modules/fifth/fifth.module').then(mod => mod.FifthModule)
       }
     ]
   },
