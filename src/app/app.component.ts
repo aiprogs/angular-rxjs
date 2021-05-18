@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnDestroy } from '@angular/core';
+import { Router } from '@angular/router';
 import { BeatService } from './core/services/beat.service';
 import { Subscription } from 'rxjs';
 import { BookmarksService } from './core/services/bookmarks.service';
@@ -7,6 +8,7 @@ import { LocksService } from './core/services/locks.service';
 import { ProfilesService } from './core/services/profiles.service';
 import { RemindersService } from './core/services/reminders.service';
 import { FavoritesService } from './core/services/favorites/favorites.service';
+import { Path } from './core/utils/named-route/path-magener';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -26,6 +28,7 @@ export class AppComponent implements OnDestroy {
               private locksService: LocksService,
               private profilesService: ProfilesService,
               private remindersService: RemindersService,
+              private router: Router,
   ) {
     this.subscriptions.add(this.beatSrv.sync$.subscribe());
     this.subscriptions.add(this.bookmarksService.sync$.subscribe());
@@ -34,7 +37,7 @@ export class AppComponent implements OnDestroy {
     this.subscriptions.add(this.locksService.sync$.subscribe());
     this.subscriptions.add(this.profilesService.sync$.subscribe());
     this.subscriptions.add(this.remindersService.sync$.subscribe());
-
+    console.log(Path.to('secondMain'), this.router.config);
   }
 
   ngOnDestroy(): void {
