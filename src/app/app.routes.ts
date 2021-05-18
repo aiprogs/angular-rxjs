@@ -2,6 +2,7 @@ import { NamedRoute } from './core/utils/named-route/named-router.module';
 import { ContainerComponent } from './container/container/container.component';
 import { PageNotFoundComponent } from './modules/page-not-found/page-not-found.component';
 import { RouteInterface } from './core/utils/route-manager/all.interface';
+import { firstRoutes } from './modules/first/first-routing.module';
 
 export const appRoutes: RouteInterface[] = [
   {
@@ -17,7 +18,8 @@ export const appRoutes: RouteInterface[] = [
       {
         path: 'first',
         name: 'first',
-        loadChildren: () => import('./modules/first/first.module').then(mod => mod.FirstModule)
+        loadChildren: () => import('./modules/first/first.module').then(mod => mod.FirstModule),
+        routeChildren: firstRoutes
       },
       {
         path: 'second',
