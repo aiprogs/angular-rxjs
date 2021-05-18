@@ -9,6 +9,7 @@ import { ProfilesService } from './core/services/profiles.service';
 import { RemindersService } from './core/services/reminders.service';
 import { FavoritesService } from './core/services/favorites/favorites.service';
 import { Path } from './core/utils/named-route/path-magener';
+import { SecondNamedRoute } from './modules/second/second-routing.module';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -37,7 +38,10 @@ export class AppComponent implements OnDestroy {
     this.subscriptions.add(this.locksService.sync$.subscribe());
     this.subscriptions.add(this.profilesService.sync$.subscribe());
     this.subscriptions.add(this.remindersService.sync$.subscribe());
-    console.log(Path.to('secondMain'), this.router.config);
+    /**
+     * Получаем path
+     */
+    console.log(Path.to(SecondNamedRoute.Second));
   }
 
   ngOnDestroy(): void {

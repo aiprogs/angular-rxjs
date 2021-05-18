@@ -10,6 +10,9 @@ export interface NamedRoute extends Route {
 @NgModule({})
 export class NamedRouterModule extends RouterModule {
   static forRoot(routes: Routes, config?: ExtraOptions): ModuleWithProviders<RouterModule> {
+    /**
+     * Подумать, если роуты грузить не на этапе импортов
+     */
     Path.addRoute(routes);
     return RouterModule.forRoot(routes, config);
   }
