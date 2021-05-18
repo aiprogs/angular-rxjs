@@ -4,13 +4,18 @@ import { ContainerComponent } from './container/container/container.component';
 import { NamedRoute, NamedRouterModule } from './core/utils/named-route/named-router.module';
 import { PageNotFoundComponent } from './modules/page-not-found/page-not-found.component';
 
+export const enum AppRoute {
+  Main = 'main',
+  First = 'first',
+  Second = 'second'
+}
 
 const routes: NamedRoute[] = [
   {
     path: '',
     pathMatch: 'full',
     redirectTo: 'first',
-    name: 'main'
+    name: AppRoute.Main
   },
   {
     path: '',
@@ -18,12 +23,12 @@ const routes: NamedRoute[] = [
     children: [
       {
         path: 'first',
-        name: 'first',
+        name: AppRoute.First,
         loadChildren: () => import('./modules/first/first.module').then(mod => mod.FirstModule)
       },
       {
         path: 'second',
-        name: 'second',
+        name: AppRoute.Second,
         loadChildren: () => import('./modules/second/second.module').then(mod => mod.SecondModule)
       },
       {
