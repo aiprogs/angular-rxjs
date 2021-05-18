@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { FirstComponent } from './first.component';
+import { RouteInterface } from '../../core/utils/route-manager/all.interface';
 
-const routes: Routes = [
+export const firstRoutes: RouteInterface[] = [
   {
     path: '',
     component: FirstComponent
@@ -10,7 +11,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
+  imports: [RouterModule.forChild(firstRoutes)],
   exports: [RouterModule]
 })
 export class FirstRoutingModule {
