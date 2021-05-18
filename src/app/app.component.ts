@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { AppRoute } from './app-routing.module';
 import { BeatService } from './core/services/beat.service';
 import { Subscription } from 'rxjs';
 import { BookmarksService } from './core/services/bookmarks.service';
@@ -42,10 +41,9 @@ export class AppComponent implements OnDestroy {
     /**
      * Получаем path
      */
-    console.log(Path.to(SecondNamedRoute.Second));
-    console.log(Path.to(AppRoute.Main));
-    console.log(Path.to(AppRoute.Second));
-    console.log(Path.to(AppRoute.First));
+    console.log(Path.to('main'));
+    console.log(Path.to('second'));
+    console.log(Path.to('third'));
   }
 
   ngOnDestroy(): void {
