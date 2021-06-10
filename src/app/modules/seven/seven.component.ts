@@ -14,7 +14,7 @@ import { DestroyService } from '../../core/services/destroy.service';
 export class SevenComponent implements OnInit {
   @ViewChild('clickableButton', {static: true}) clickableButton!: ElementRef;
 
-  constructor(@Inject(DestroyService) private destroy$: Observable<void>) {
+  constructor(private destroy$: DestroyService) {
   }
 
   ngOnInit(): void {
