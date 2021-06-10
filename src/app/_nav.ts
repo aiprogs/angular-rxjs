@@ -6,6 +6,10 @@ export const NAV_ITEMS: NavigationData[] = [
     url: 'first'
   },
   {
+    name: 'Theory Page',
+    url: 'theory'
+  },
+  {
     name: 'Async',
     url: 'second'
   },

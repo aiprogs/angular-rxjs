@@ -14,6 +14,10 @@ const routes: Routes = [
     component: ContainerComponent,
     children: [
       {
+        path: 'theory',
+        loadChildren: () => import('./modules/theory/theory.module').then(mod => mod.TheoryModule)
+      },
+      {
         path: 'first',
         loadChildren: () => import('./modules/first/first.module').then(mod => mod.FirstModule)
       },
