@@ -22,6 +22,10 @@ export const NAV_ITEMS: NavigationData[] = [
     url: 'fifth'
   },
   {
+    name: 'Injectable unsubscribe',
+    url: 'seven'
+  },
+  {
     name: 'Yandex Website',
     href: 'https://yandex.ru',
     attributes: { target: '_blank', rel: 'noopener'}
