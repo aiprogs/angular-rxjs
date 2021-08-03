@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { TheoryRoutingModule } from './theory-routing.module';
 import { TheoryComponent } from './theory.component';
+import { TheoryService } from './theory.service';
 
 
 @NgModule({
@@ -12,6 +13,9 @@ import { TheoryComponent } from './theory.component';
   imports: [
     CommonModule,
     TheoryRoutingModule
+  ],
+  providers: [
+    TheoryService
   ]
 })
 export class TheoryModule { }

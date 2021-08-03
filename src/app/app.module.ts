@@ -5,6 +5,7 @@ import { AppComponent } from './app.component';
 import { ContainerComponent } from './container/container/container.component';
 import { LoggerLevel, setLoggerLevel } from './core/utils/logger';
 import { PageNotFoundComponent } from './modules/page-not-found/page-not-found.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { PageNotFoundComponent } from './modules/page-not-found/page-not-found.c
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
