@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnDestroy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Inject, OnDestroy, PLATFORM_ID } from '@angular/core';
 import { BeatService } from './core/services/beat.service';
 import { Subscription } from 'rxjs';
 import { BookmarksService } from './core/services/bookmarks.service';
@@ -7,6 +7,7 @@ import { LocksService } from './core/services/locks.service';
 import { ProfilesService } from './core/services/profiles.service';
 import { RemindersService } from './core/services/reminders.service';
 import { FavoritesService } from './core/services/favorites/favorites.service';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -19,7 +20,9 @@ export class AppComponent implements OnDestroy {
 
   private subscriptions = new Subscription();
 
-  constructor(private beatSrv: BeatService,
+  constructor(@Inject(PLATFORM_ID)
+              private readonly platformId: string,
+              private beatSrv: BeatService,
               private bookmarksService: BookmarksService,
               private channelsService: ChannelsService,
               private favoritesService: FavoritesService,
@@ -27,14 +30,15 @@ export class AppComponent implements OnDestroy {
               private profilesService: ProfilesService,
               private remindersService: RemindersService,
   ) {
-    this.subscriptions.add(this.beatSrv.sync$.subscribe());
-    this.subscriptions.add(this.bookmarksService.sync$.subscribe());
-    this.subscriptions.add(this.channelsService.sync$.subscribe());
-    this.subscriptions.add(this.favoritesService.sync$.subscribe());
-    this.subscriptions.add(this.locksService.sync$.subscribe());
-    this.subscriptions.add(this.profilesService.sync$.subscribe());
-    this.subscriptions.add(this.remindersService.sync$.subscribe());
-
+    if (isPlatformBrowser(this.platformId)) {
+      this.subscriptions.add(this.beatSrv.sync$.subscribe());
+      this.subscriptions.add(this.bookmarksService.sync$.subscribe());
+      this.subscriptions.add(this.channelsService.sync$.subscribe());
+      this.subscriptions.add(this.favoritesService.sync$.subscribe());
+      this.subscriptions.add(this.locksService.sync$.subscribe());
+      this.subscriptions.add(this.profilesService.sync$.subscribe());
+      this.subscriptions.add(this.remindersService.sync$.subscribe());
+    }
   }
 
   ngOnDestroy(): void {

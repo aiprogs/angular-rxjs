@@ -20,7 +20,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/angular-rxjs",
+            "outputPath": "dist/angular-rxjs/browser",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -69,6 +69,15 @@
                   "maximumError": "4kb"
                 }
               ]
+            },
+            "development": {
+              "optimization": false,
+              "outputHashing": "none",
+              "sourceMap": true,
+              "namedChunks": false,
+              "extractLicenses": false,
+              "vendorChunk": false,
+              "buildOptimizer": false
             }
           }
         },
@@ -80,6 +89,9 @@
           "configurations": {
             "production": {
               "browserTarget": "angular-rxjs:build:production"
+            },
+            "development": {
+              "browserTarget": "angular-rxjs:build:development"
             }
           }
         },
@@ -130,6 +142,78 @@
               "devServerTarget": "angular-rxjs:serve:production"
             }
           }
+        },
+        "server": {
+          "builder": "@angular-devkit/build-angular:server",
+          "options": {
+            "outputPath": "dist/angular-rxjs/server",
+            "main": "server.ts",
+            "tsConfig": "tsconfig.server.json",
+            "optimization": false,
+            "sourceMap": true,
+            "extractLicenses": false,
+            "externalDependencies": [
+              "@nestjs/microservices",
+              "@nestjs/microservices/microservices-module",
+              "@nestjs/websockets",
+              "@nestjs/websockets/socket-module",
+              "cache-manager"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "outputHashing": "media",
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": false,
+              "sourceMap": false,
+              "extractLicenses": true
+            },
+            "development": {
+              "outputHashing": "media",
+              "optimization": false,
+              "sourceMap": false,
+              "extractLicenses": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve-ssr": {
+          "builder": "@nguniversal/builders:ssr-dev-server",
+          "configurations": {
+            "development": {
+              "browserTarget": "angular-rxjs:build:development",
+              "serverTarget": "angular-rxjs:server:development"
+            },
+            "production": {
+              "browserTarget": "angular-rxjs:build:production",
+              "serverTarget": "angular-rxjs:server:production"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "prerender": {
+          "builder": "@nguniversal/builders:prerender",
+          "options": {
+            "routes": [
+              "/"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "angular-rxjs:build:production",
+              "serverTarget": "angular-rxjs:server:production"
+            },
+            "development": {
+              "browserTarget": "angular-rxjs:build:development",
+              "serverTarget": "angular-rxjs:server:development"
+            }
+          },
+          "defaultConfiguration": "production"
         }
       }
     }
