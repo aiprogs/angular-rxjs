@@ -36,6 +36,10 @@ const routes: Routes = [
       {
         path: 'fifth',
         loadChildren: () => import('./modules/fifth/fifth.module').then(mod => mod.FifthModule)
+      },
+      {
+        path: 'seven',
+        loadChildren: () => import('./modules/seven/seven.module').then(mod => mod.SevenModule)
       }
     ]
   },
