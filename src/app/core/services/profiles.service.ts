@@ -23,7 +23,7 @@ export class ProfilesService extends BaseServiceClass<SomeData> {
   protected sync(version: BeatVersion): Observable<SomeData> {
     return of(version).pipe(
       mergeMap(ver => this.mockService.getSomeData(ver.profile ?? '0')),
-      logger('ProfilesService emitted', LoggerLevel.INFO)
+      logger('Service[ProfilesService] emitted', LoggerLevel.INFO)
     );
   }
 }

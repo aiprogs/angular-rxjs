@@ -1,8 +1,17 @@
 /* You can add global styles to this file, and also import other style files */
+$aspect-ratios: (
+  "1x1": 100%,
+  "4x3": calc(3 / 4 * 100%),
+  "16x9": calc(9 / 16 * 100%),
+  "18x24": calc(24 / 18 * 100%),
+  "21x9": calc(9 / 21 * 100%)
+);
+
+@import '~bootstrap/scss/bootstrap';
 
 body {
   display: flex;
-  min-height: 100vh;
+  min-height: 300vh;
 }
 
 a[disabled="true"] {

@@ -41,7 +41,7 @@ export class BeatService {
         }
         return versions;
       }),
-      logger('BeatService versions', LoggerLevel.ASSERT),
+      logger('Service[BeatService] versions', LoggerLevel.ASSERT),
       filter(versions => !!Object.keys(versions).length),
       map(versions => this.beatVersions = versions),
       share(),

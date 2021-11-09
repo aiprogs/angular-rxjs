@@ -22,7 +22,7 @@ export class RemindersService extends BaseServiceClass<string> {
         this.update(ver.profile ?? '0');
         return this.repeat$.getValue();
       }),
-      logger('RemindersService emitted', LoggerLevel.INFO)
+      logger('Service[RemindersService] emitted', LoggerLevel.INFO)
     );
   }
 }

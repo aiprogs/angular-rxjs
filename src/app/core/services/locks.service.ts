@@ -28,7 +28,7 @@ export class LocksService extends BaseServiceClass<LockData> {
         this.setLock(ver ?? '1');
         return this.repeat$.getValue();
       }),
-      logger('LocksService emitted', LoggerLevel.INFO)
+      logger('Service[LocksService] emitted', LoggerLevel.INFO)
     );
   }
 

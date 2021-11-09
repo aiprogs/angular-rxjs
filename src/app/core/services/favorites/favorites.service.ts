@@ -3,7 +3,6 @@ import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { BaseServiceClass } from '../base-service.class';
 import { BeatService, BeatVersion } from '../beat.service';
-import { LocksService } from '../locks.service';
 import { logger, LoggerLevel } from '../../utils/logger';
 import { Favorites } from './shared/interfaces/favorites.interface';
 
@@ -14,8 +13,7 @@ export class FavoritesService extends BaseServiceClass<Favorites> {
   private favorites$: Observable<Favorites> | undefined;
 
   constructor(@Optional() @SkipSelf() favorites: FavoritesService,
-              beatService: BeatService,
-              private locksService: LocksService) {
+              beatService: BeatService) {
     super(beatService, {
       currentVersion: '',
       favorites: [],
@@ -39,7 +37,7 @@ export class FavoritesService extends BaseServiceClass<Favorites> {
           });
           return this.repeat$.getValue();
         }),
-        logger('FavoritesService emitted', LoggerLevel.INFO),
+        logger('Service[FavoritesService] emitted', LoggerLevel.INFO),
       );
     }
     return this.favorites$;

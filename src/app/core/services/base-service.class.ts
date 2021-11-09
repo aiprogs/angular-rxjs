@@ -25,7 +25,7 @@ export abstract class BaseServiceClass<T> {
       );
 
     this.update$ = this.repeat$.asObservable().pipe(
-      logger('Repeat ....', LoggerLevel.DEBUG)
+      logger('Service[BaseServiceClass] Repeat ....', LoggerLevel.DEBUG)
     );
   }
 

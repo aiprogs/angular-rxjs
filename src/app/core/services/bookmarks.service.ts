@@ -22,7 +22,7 @@ export class BookmarksService extends BaseServiceClass<string> {
           this.update(ver.bookmark ?? '0');
           return this.repeat$.getValue();
         }),
-        logger('BookmarksService emitted', LoggerLevel.INFO)
+        logger('Service[BookmarksService] emitted', LoggerLevel.INFO)
       );
   }
 }

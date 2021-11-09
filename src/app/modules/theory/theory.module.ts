@@ -18,4 +18,5 @@ import { TheoryService } from './theory.service';
     TheoryService
   ]
 })
-export class TheoryModule { }
+export class TheoryModule {
+}
